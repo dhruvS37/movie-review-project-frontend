@@ -5,10 +5,13 @@ angular.module('movieReview').config(['$routeProvider',
     function ($routeProvider) {
         $routeProvider.
             when('/home', {
-                template: '<h1>jbdjsad</h1>'
+                templateUrl: './pages/home.html'
             }).
-            when('/phones/:phoneId', {
-                template: '<phone-detail></phone-detail>'
+            when('/category', {
+                templateUrl: './category-list/category-insert-form.tpl.html'
+            }).
+            when('/cast', {
+                templateUrl: './cast-list/cast-insert-form.tpl.html'
             }).
             otherwise('/');
     }
