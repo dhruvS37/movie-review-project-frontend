@@ -1,0 +1,11 @@
+<form class="container border rounded-2 my-3 p-3" id="myForm" action="/category" method="POST">
+    {{ csrf_field() }}
+    <div class="mb-3">
+        <label for="category" class="input-lable p-2">Category</label>
+        <input type="text" class="form-control" id="category" name="category" required>
+    </div>
+    <div class="mb-3 d-flex justify-content-center">
+        <button id="categoryAdd" name="submit" type="submit" class="btn btn-dark mx-2">Save</button>
+        <a href="#!home" class="btn btn-dark mx-2">Go Back</a>
+    </div>
+</form>
