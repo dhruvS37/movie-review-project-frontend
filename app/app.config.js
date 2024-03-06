@@ -8,6 +8,10 @@ angular.module('movieReview').config(['$routeProvider',
                 templateUrl: './pages/home.html',
                 controller: 'movieInfoController'
             })
+            .when('/filter', {
+                templateUrl: './pages/filter.html',
+                controller: 'movieFilterController'
+            })
             .when('/category', {
                 template: '<category-insert></category-insert>'
             })
