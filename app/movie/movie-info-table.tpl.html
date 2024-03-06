@@ -1,4 +1,5 @@
 <div class="container mt-5 mb-3 d-block p-3 table-responsive border rounded-2">
+   
     <table class="table table-hover">
         <thead>
             <tr>
@@ -13,7 +14,8 @@
         </thead>
         <tbody id="tableBody" class="table-group-divider">
                 <tr>
-                    <td>{{ $i++ }}</td>
+                    <td>{{ movies }}</td>
+                    <!-- <td>{{ $i++ }}</td>
                     <td>{{ $movie->movie_name }}</td>
                     <td>{{ $movie->categories }}</td>
                     <td>{{ $movie->cast_crew }}</td>
@@ -21,7 +23,7 @@
                     <td><a class="btn btn-dark editBtn" href="/home/{{ $movie->id }}"><span
                                 class="material-symbols-outlined">edit_square</span></a></td>
                     <td><button class="btn btn-dark deleteBtn" data-id = "{{ $movie->id }}"><span
-                                class="material-symbols-outlined">delete</span></button></td>
+                                class="material-symbols-outlined">delete</span></button></td> -->
                 </tr>
 
 

@@ -1,8 +1,8 @@
-<form class="container border rounded-2 my-3 p-3" id="myForm" action="/category" method="POST">
+<form class="container border rounded-2 my-3 p-3" id="myForm" ng-submit="addCategory()">
     {{ csrf_field() }}
     <div class="mb-3">
         <label for="category" class="input-lable p-2">Category</label>
-        <input type="text" class="form-control" id="category" name="category" required>
+        <input type="text" class="form-control" id="category" name="category" ng-model="categoryInput" required>
     </div>
     <div class="mb-3 d-flex justify-content-center">
         <button id="categoryAdd" name="submit" type="submit" class="btn btn-dark mx-2">Save</button>

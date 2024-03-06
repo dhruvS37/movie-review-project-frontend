@@ -39,9 +39,13 @@
     <!-- scripts -->
     <script src="app.module.js"></script>
     <script src="app.config.js"></script>
-    <script src="movie/movie.module.js"></script>
-    <script src="movie/movie.directive.js"></script>
-    
+    <script src="movie/movie.component.js"></script>
+    <script src="movie/service.js"></script>
+    <script src="category/category.component.js"></script>
+    <script src="category/category.service.js"></script>
+    <script src="cast/cast.component.js"></script>
+    <script src="cast/cast.service.js"></script>
+
     <style>
         @keyframes fadeIn {
             0% {
@@ -77,30 +81,30 @@
                             <a class="nav-link" href="#">Filter</a>
                         </li>
                     </ul>
-                    <ul class="navbar-nav " style="--bs-scroll-height: 100px;">
-                        <li class="nav-item"><a class="nav-link " href="">Login</a></li>
-                        <li class="nav-item"><a class="nav-link " href="">Register</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                Dropdown link
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a class="dropdown-item " href="" onclick="event.preventDefault();
-                                            document.getElementById('logout-form').submit();">
-                                        Logout
-                                    </a>
-
-                                    <!-- <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                        style="display: none;">
-                                        {{ csrf_field() }}
-                                    </form> -->
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
                 </div>
+                <ul class="navbar-nav " style="--bs-scroll-height: 100px;">
+                    <li class="nav-item"><a class="nav-link " href="#!login">Login</a></li>
+                    <li class="nav-item"><a class="nav-link " href="#!register">Register</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Dropdown link
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item " href="" onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                                    Logout
+                                </a>
+
+                                <!-- <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    style="display: none;">
+                                    {{ csrf_field() }}
+                                </form> -->
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
 
 
             </div>

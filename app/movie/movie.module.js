@@ -1,3 +1,3 @@
-'use strict';
+// 'use strict';
 
-angular.module('movie', []);
+// angular.module('movie', []);
