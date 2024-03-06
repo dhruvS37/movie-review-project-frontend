@@ -13,8 +13,8 @@
             </tr>
         </thead>
         <tbody id="tableBody" class="table-group-divider">
-                <tr>{{ $ctrl.movies }}</tr>
-                <!-- <tr ng-repeat='movie in $ctrl.movies[0]'>
+
+                <tr ng-repeat='movie in movies[0]'>
                     <td>{{ $index + 1 }}</td>
                     <td>{{ movie.movie_name }}</td>
                     <td>{{ movie.categories }}</td>
@@ -24,8 +24,7 @@
                                 class="material-symbols-outlined">edit_square</span></a></td>
                     <td><button class="btn btn-dark deleteBtn" data-id = {{ $movie.id }}><span
                                 class="material-symbols-outlined">delete</span></button></td>
-                </tr> -->
-
+                </tr>
 
         </tbody>
     </table>

@@ -1,25 +1,28 @@
 
 angular.module('movie')
-    .component('movieInfoForm',{
-        templateUrl : './movie/movie-info-form.tpl.html',
-        controller : function movieInfoFormController(){
-            $scope.movieInfoData = [];
+    .directive('movieInfoForm', function () {
+        return {
+            templateUrl: './movie/movie-info-form.tpl.html',
+            // controller : ''
         }
     })
 
-    .component('movieList', {
-        bindings: {
-            movies : '<'
-        },
-        templateUrl : './movie/movie-info-table.tpl.html',
-        // controller : ['movieServices', function movieInfoTableController(movieServices){
-            
-        //     // $scope.movies = []
-        //     // movieServices.getMoviesInfo().then( response =>{
-        //     //     $scope.movies.push(response.data.movies)
-        //     //     console.log($scope.movies);
-        //     // })
-            
-        // }],
+
+    .directive('movieList', function () {
+        return {
+            templateUrl: './movie/movie-info-table.tpl.html',
+            // controller : ['movieServices', function movieInfoTableController(movieServices){
+
+            //     // this.movies = this.movies
+            //     // movieServices.getMoviesInfo().then( response =>{
+            //     //     $scope.movies.push(response.data.movies)
+            //     //     console.log($scope.movies);
+            //     // })
+
+            // }],
+        }
 
     })
+// function movieInfoFormController(){
+//     $scope.movieInfoData = [];
+// }
