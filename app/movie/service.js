@@ -3,9 +3,7 @@ angular.module('movie')
         let service = {}
 
         service.getMoviesInfo = function (){
-            $http.get('').then(function (response) { 
-                console.log(response);
-            })
+            return $http.get('http://127.0.0.1:8000/home')
         }
         service.getMoviesInfoById = function (){
             $http.get('').then(function (response) { 

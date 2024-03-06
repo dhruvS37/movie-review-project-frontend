@@ -5,7 +5,8 @@ angular.module('movieReview').config(['$routeProvider',
     function ($routeProvider) {
         $routeProvider
             .when('/home', {
-                templateUrl: './pages/home.html'
+                templateUrl: './pages/home.html',
+                controller: 'movieInfoController'
             })
             .when('/category', {
                 template: '<category-insert></category-insert>'
@@ -27,4 +28,4 @@ angular.module('movieReview').config(['$routeProvider',
             })
             .otherwise('/home');
     }
-]);
+])

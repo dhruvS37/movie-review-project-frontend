@@ -8,5 +8,6 @@ angular.module('movieReview', [
   'ngRoute',
   'movie', 
   'category',
-  'cast'
+  'cast',
+  // 'movieServices'
 ]);
