@@ -7,6 +7,7 @@ angular.module('cast', [])
 
 angular.module('movieReview', [
   'ngRoute',
+  'ngCookies',
   'movie', 
   'category',
   'cast',

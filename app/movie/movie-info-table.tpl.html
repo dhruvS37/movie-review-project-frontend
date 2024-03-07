@@ -20,7 +20,7 @@
                     <td>{{ movie.categories }}</td>
                     <td>{{ movie.cast_crew }}</td>
                     <td>{{ movie.rating }}</td>
-                    <td><a class="btn btn-dark editBtn"><span
+                    <td><a class="btn btn-dark editBtn" ng-click="fillDataInForm(movie)"><span
                                 class="material-symbols-outlined">edit_square</span></a></td>
                     <td><button class="btn btn-dark deleteBtn" data-id = {{ $movie.id }}><span
                                 class="material-symbols-outlined">delete</span></button></td>

@@ -6,15 +6,14 @@ angular.module('movie')
             return $http.get('http://127.0.0.1:8000/home')
         }
         service.getMoviesInfoById = function (){
-            $http.get('').then(function (response) { 
+            $http.get('http://127.0.0.1:8000/home').then(function (response) { 
                 console.log(response);
             })
         }
 
-        service.addMovie = function (){
-            $http.post('', {}).then(function (response) { 
-                console.log(response);
-            })
+        service.addMovie = function (data){
+            // console.log(data);
+            return $http.post('http://127.0.0.1:8000/home', data)
         }
 
         service.updateMovieInfo = function (){

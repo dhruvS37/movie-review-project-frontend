@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('movieReview').config(['$routeProvider',
+angular.module('movieReview').config(['$routeProvider','$httpProvider',
 
-    function ($routeProvider) {
+    function ($routeProvider,$httpProvider) {
         $routeProvider
             .when('/home', {
                 templateUrl: './pages/home.html',
@@ -31,5 +31,7 @@ angular.module('movieReview').config(['$routeProvider',
                 templateUrl: './pages/reset.html'
             })
             .otherwise('/home');
+
+        
     }
 ])

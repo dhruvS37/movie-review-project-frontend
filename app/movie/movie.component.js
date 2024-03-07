@@ -3,7 +3,7 @@ angular.module('movie')
     .directive('movieInfoForm', function () {
         return {
             templateUrl: './movie/movie-info-form.tpl.html',
-            // controller : ''
+            controller :'movieInfoFormController'
         }
     })
 
@@ -11,6 +11,7 @@ angular.module('movie')
     .directive('movieList', function () {
         return {
             templateUrl: './movie/movie-info-table.tpl.html',
+            controller : 'movieListController'
             // controller : ['movieServices', function movieInfoTableController(movieServices){
 
             //     // this.movies = this.movies

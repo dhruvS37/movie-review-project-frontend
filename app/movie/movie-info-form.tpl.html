@@ -1,12 +1,12 @@
-<form class="container border rounded-2 my-3 p-3" style="width: 90%;" id="myForm" method="POST">
+<form class="container border rounded-2 my-3 p-3" style="width: 90%;" id="myForm" ng-submit="formSubmit()">
 
     <!-- @isset($data) {{ method_field('PUT') }} @endisset
     {{ csrf_field() }} -->
-
+   
     <div class="mb-3">
         <label for="movieNameInput" class="input-label p-2">Movie Name</label>
-        <input type="text" class="form-control" id="movieNameInput" name="movieName"
-            value="" required>
+        <input type="text" class="form-control" id="movieNameInput" name="movieName" ng-model="movieName" value= ""
+            required>
     </div>
 
     <div class="mb-3">
@@ -22,12 +22,12 @@
 
         <div class="row p-2 mx-0 border rounded" id="categoryInput" required>
 
-                <div class="form-check col-sm-6 col-md-2" ng-repeat="category in categories[0]">
-                    <input class="form-check-input checkInput" type="checkbox" name="category[]"
-                        value={{ category.category }} id={{ category.id }}>
+            <div class="form-check col-sm-6 col-md-2" ng-repeat="category in categories[0]">
+                <input class="form-check-input checkInput" type="checkbox" name="category[]"
+                    ng-model="category.selected" value={{ category.category }} id={{ category.id }} ng-cheked>
 
-                    <label class="form-check-label" for={{ category.id }}>{{ category.category }}</label>
-                </div>
+                <label class="form-check-label" for={{ category.id }}>{{ category.category }}</label>
+            </div>
 
         </div>
     </div>
@@ -43,31 +43,53 @@
             </div>
         </div>
 
-        <select class="form-select" style="width: 100%;" name="castAndCrew[]" id="castAndCrewInput" multiple="multiple" required>
+        <select class="form-select" style="width: 100%;" name="castAndCrew[]" id="castAndCrewInput"
+            ng-model="selectedCast" multiple="multiple" required>
 
-                <option value={{ cast.cast_name }} ng-repeat="cast in casts[0]">
-                    {{ cast.cast_name }}
-                </option>
+            <option value={{cast.cast_name}} ng-repeat="cast in casts[0]">
+                {{ cast.cast_name }}
+            </option>
 
         </select>
     </div>
 
     <div class="mb-3">
         <div for="ratingInput" class="input-label p-2">Rating</div>
-        <select class="form-select" style="width: 100%;" name="rating" id="ratingInput" required>
+        <select class="form-select" style="width: 100%;" name="rating" id="ratingInput" ng-model="selectedRating"
+            required>
             <option value=""></option>
-            <option value="1" {{ isset($data) && $data->rating == '1' ? 'selected' : '' }}>1</option>
-            <option value="2" {{ isset($data) && $data->rating == '2' ? 'selected' : '' }}>2</option>
-            <option value="3" {{ isset($data) && $data->rating == '3' ? 'selected' : '' }}>3</option>
-            <option value="4" {{ isset($data) && $data->rating == '4' ? 'selected' : '' }}>4</option>
-            <option value="5" {{ isset($data) && $data->rating == '5' ? 'selected' : '' }}>5</option>
+            <option value="1"> 1 </option>
+            <option value="2"> 2 </option>
+            <option value="3"> 3 </option>
+            <option value="4"> 4 </option>
+            <option value="5"> 5 </option>
         </select>
     </div>
 
     <div class="mb-3 text-center">
-        <button id="submit" name="submit" type="submit" class="btn btn-dark mx-2">{{ isset($data) ? "Update" : "Save"}}</button>
-        <button id="reset" name="reset" type="reset" class="btn btn-dark mx-2">Reset</button>
+        <button id="submit" name="submit" type="submit" class="btn btn-dark mx-2">Save</button>
+        <button id="reset" name="reset" type="reset" ng-click="reset($event)" class="btn btn-dark mx-2">Reset</button>
     </div>
 
 
 </form>
+<script>
+    $(document).ready(function () {
+
+        function hideSelected(value) {
+            if (value && !value.selected) {
+                return $('<span>' + value.text + '</span>');
+            }
+        }
+
+        $('#castAndCrewInput').select2({
+            placeholder: "Select a cast",
+            width: 'resolve',
+            templateResult: hideSelected
+        });
+
+        $('#ratingInput').select2({
+            placeholder: "Select a rating",
+        });
+    })
+</script>
