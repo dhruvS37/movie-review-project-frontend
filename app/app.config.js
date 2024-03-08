@@ -19,7 +19,8 @@ angular.module('movieReview').config(['$routeProvider','$httpProvider',
                 template: '<cast-insert> </cast-insert>'
             })
             .when('/login', {
-                templateUrl: './pages/login.html'
+                templateUrl: './pages/login.html',
+                controller: 'loginController'
             })
             .when('/register', {
                 templateUrl: './pages/register.html'
@@ -32,6 +33,13 @@ angular.module('movieReview').config(['$routeProvider','$httpProvider',
             })
             .otherwise('/home');
 
+        // $httpProvider.defualtS.xsrfTrustedOrigins = []
+        // $httpProvider.defualtS.xsrfTrustedOrigins.push('self','http://127.0.0.1:8000/**')
         
     }
 ])
+.run(function($injector,$http){
+    $http.defaults.xsrfTrustedOrigins = []
+    $http.defaults.xsrfTrustedOrigins.push('self','http://127.0.0.1:8000/**')
+
+})

@@ -2,10 +2,10 @@
 
     <!-- @isset($data) {{ method_field('PUT') }} @endisset
     {{ csrf_field() }} -->
-   
+
     <div class="mb-3">
         <label for="movieNameInput" class="input-label p-2">Movie Name</label>
-        <input type="text" class="form-control" id="movieNameInput" name="movieName" ng-model="movieName" value= ""
+        <input type="text" class="form-control" id="movieNameInput" name="movieName" ng-model="movieName" value=""
             required>
     </div>
 
@@ -68,13 +68,14 @@
 
     <div class="mb-3 text-center">
         <button id="submit" name="submit" type="submit" class="btn btn-dark mx-2">Save</button>
-        <button id="reset" name="reset" type="reset" ng-click="reset($event)" class="btn btn-dark mx-2">Reset</button>
+        <button id="reset" name="reset" type="button" ng-click="reset()" class="btn btn-dark mx-2">Reset</button>
     </div>
 
 
 </form>
 <script>
-    $(document).ready(function () {
+    
+    jQuery(document).ready(function ($) {
 
         function hideSelected(value) {
             if (value && !value.selected) {
@@ -91,5 +92,13 @@
         $('#ratingInput').select2({
             placeholder: "Select a rating",
         });
+
+        // $('#reset').click(function (event) {
+        //     event.preventDefault();
+        //     $("#movieNameInput").val(null);
+        //     $('.checkInput').prop("checked", false)
+        //     $('#castAndCrewInput').val(null).trigger('change');
+        //     $('#ratingInput').val(null).trigger('change');
+        // })
     })
 </script>

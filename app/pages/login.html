@@ -3,33 +3,34 @@
         <div class="col-sm-10 col-md-6 border rounded-2 my-3 p-3">
             <h2 class="text-bg-dark border rounded-2 text-center p-1 mb-3">Login</h2>
 
-            <form method="POST" action="{{ route('login') }}">
-                {{ csrf_field() }}
+            <form ng-submit="login()">
+                <!-- {{ csrf_field() }} -->
 
                 <div class="mb-3">
                     <label for="email" class="form-label">Email address</label>
-                    <input type="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" id="email"
-                        aria-describedby="emailHelp" name="email" value="{{ old('email') }}" required autofocus>
+                    <input type="email" class="form-control" id="email" ng-model="email"
+                        aria-describedby="emailHelp" name="email" value="" required autofocus>
 
-                    <span class="invalid-feedback" id="emailHelp">
+                        <!-- {{ $errors->has('email') ? ' is-invalid' : '' }} -->
+                    <!-- <span class="invalid-feedback" id="emailHelp">
                         <strong>{{ $errors->first('email') }}</strong>
-                    </span>
+                    </span> -->
 
                 </div>
 
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}"
+                    <input type="password" class="form-control " ng-model="password"
                         id="password" name="password" required>
-
-                    <span class="invalid-feedback">
+                        
+                        <!-- {{ $errors->has('password') ? ' is-invalid' : '' }} -->
+                    <!-- <span class="invalid-feedback">
                         <strong>{{ $errors->first('password') }}</strong>
-                    </span>
+                    </span> -->
 
                 </div>
                 <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1" name="remember" {{
-                        old('remember') ? 'checked' : '' }}>
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1" name="remember" ng-model="remember">
                     <label class="form-check-label" for="exampleCheck1">Remember Me</label>
                 </div>
 
@@ -38,7 +39,7 @@
                         Login
                     </button>
 
-                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                    <a class="btn btn-link" href="#!email">
                         Forgot Your Password?
                     </a>
                 </div>

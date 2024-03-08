@@ -3,15 +3,11 @@ angular.module('category')
         let service = {}
 
         service.getCategoryList = function (){
-            $http.get('').then(function (response) { 
-                console.log(response);
-            })
+            return $http.get('http://127.0.0.1:8000/category')
         }
 
-        service.addCategory = function (){
-            $http.post('', {}).then(function (response) { 
-                console.log(response);
-            })
+        service.addCategory = function (data){
+            return $http.post('http://127.0.0.1:8000/category', data)
         }
 
         return service;

@@ -3,15 +3,11 @@ angular.module('cast')
         let service = {}
 
         service.getCastList = function (){
-            $http.get('').then(function (response) { 
-                console.log(response);
-            })
+            return $http.get('http://127.0.0.1:8000/cast')
         }
 
         service.addCast = function (data){
-            $http.post('', {}).then(function (response) { 
-                console.log(response);
-            })
+            return $http.post('http://127.0.0.1:8000/cast', data)
         }
 
         return service;
