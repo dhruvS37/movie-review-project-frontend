@@ -79,7 +79,7 @@
                 <div class="w-100">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" ng-class="{active:currentLocation == '/Home'}" aria-current="page" href="#!home">Home</a>
+                            <a class="nav-link" ng-class="{active:currentLocation == '/home'}" aria-current="page" href="#!home">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" ng-class="{active:currentLocation == '/filter'}" href="#!filter">Filter</a>
@@ -87,8 +87,8 @@
                     </ul>
                 </div>
                 <ul class="navbar-nav " style="--bs-scroll-height: 100px;">
-                    <li class="nav-item"><a class="nav-link " ng-show="!globals.currentUser" href="#!login">Login</a></li>
-                    <li class="nav-item"><a class="nav-link " ng-show="!globals.currentUser" href="#!register">Register</a></li>
+                    <li class="nav-item"><a class="nav-link" ng-class="{active:currentLocation == '/login'}" ng-show="!globals.currentUser" href="#!login">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" ng-class="{active:currentLocation == '/register'}" ng-show="!globals.currentUser" href="#!register">Register</a></li>
                     <li class="nav-item dropdown" ng-show="globals.currentUser">
                         <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">

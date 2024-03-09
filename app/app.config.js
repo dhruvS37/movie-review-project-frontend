@@ -44,12 +44,12 @@ angular.module('movieReview')
 
             $rootScope.$on('$locationChangeStart', function (event, next, current) {
                 // redirect to login page if not logged in
-                console.log($rootScope.globals);
-                $rootScope.currentLocation = $location.path()
+                console.log($rootScope.currentLocation);
                 
                 if (($location.path() == '/home' || $location.path() == '/filter') && !$rootScope.globals.currentUser) {
                     $location.path('/login');
                 }
+                $rootScope.currentLocation = $location.path()
             });
 
             $rootScope.logout = function () {
