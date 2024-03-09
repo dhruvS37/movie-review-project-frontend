@@ -16,7 +16,11 @@ angular.module('movie')
                 $scope.categories.push(response.data.categories)
                 $scope.casts.push(response.data.casts)
                 $scope.movies.push(response.data.movies)
+            },
+            function(error){
+                console.log(error);
             })
+            
         }
         $scope.initializeHome()
     }])
