@@ -68,7 +68,7 @@
 <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Movie Review</a>
+            <a class="navbar-brand" href="#">{{ appName }}</a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -121,7 +121,7 @@
     <div ng-if="alert.type=='success'" class="container alert alert-success alert-box" style="display:block;animation: fadeIn 2s forwards 3s;">
         {{ alert.message }}
     </div>
-    <div ng-if="alert.type=='danger'" class="container alert alert-success alert-box" style="display:block;animation: fadeIn 2s forwards 3s;">
+    <div ng-if="alert.type=='danger'" class="container alert alert-danger alert-box" style="display:block;animation: fadeIn 2s forwards 3s;">
         {{ alert.message }}
     </div>
 

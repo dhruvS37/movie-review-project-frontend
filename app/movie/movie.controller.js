@@ -4,30 +4,45 @@ angular.module('movie')
         $scope.casts
         $scope.movies
         $scope.movieToUpdate = undefined
-        $rootScope.alert = null
+        $scope.alert = null
 
         $scope.initializeHome = function () {
             $scope.categories = []
             $scope.casts = []
             $scope.movies = []
 
-            movieServices.getMoviesInfo().then(response => {
+            movieServices.getMoviesInfo().then(
+                function (response) {
 
-                $scope.categories.push(response.data.categories)
-                $scope.casts.push(response.data.casts)
-                $scope.movies.push(response.data.movies)
-            },
-            function(error){
-                console.log(error);
-            })
-            
+                    $scope.categories.push(response.data.categories)
+                    $scope.casts.push(response.data.casts)
+                    $scope.movies.push(response.data.movies)
+                },
+                function (error) {
+                    console.log(error);
+                })
+
+        }
+
+        $scope.setErrorMessage = function (data) {
+            let alert = { message: '' }
+            if ('movieName' in data)
+                alert.message += data.movieName + "\n"
+            if ('category' in data)
+                alert.message += data.category + "\n"
+            if ('rating' in data)
+                alert.message += data.rating + "\n"
+            if ('message' in data)
+                alert.message += data.message
+
+            $scope.alert = alert
         }
         $scope.initializeHome()
     }])
 
-    .controller('movieInfoFormController', ['$scope', 'movieServices', '$timeout', function ($scope, movieServices, $timeout) {
+    .controller('movieInfoFormController', ['$scope', 'movieServices', '$timeout', '$rootScope', function ($scope, movieServices, $timeout, $rootScope) {
         $scope.selectedCast = []
-
+        $scope.isChecked = true
         $scope.$on('fillDataInForm', function (event, data) {
             $scope.movieToUpdate = data.id
 
@@ -68,39 +83,31 @@ angular.module('movie')
 
                 movieServices.addMovie(newData)
                     .then(function (response) {
-                        $scope.alert = {
-                            message: response.data.message,
-                            type: 'success'
-                        }
+                        $scope.setErrorMessage(response.data)
+                        $scope.alert.type = 'success'
                         $scope.initializeHome()
                     })
                     .catch(function (error) {
-                        $scope.alert = {
-                            message: response.data.message,
-                            type: 'danger'
-                        }
+                        $scope.setErrorMessage(error.data)
+                        $scope.alert.type = 'danger'
                     })
             } else {
                 newData.id = $scope.movieToUpdate;
 
                 movieServices.updateMovie(newData)
                     .then(function (response) {
-                        $scope.alert = {
-                            message: response.data.message,
-                            type: 'success'
-                        }
+                        // console.log(response);
+                        $scope.setErrorMessage(response.data)
+                        $scope.alert.type = 'success'
                         $scope.initializeHome()
+
                     })
                     .catch(function (error) {
-                        $scope.alert = {
-                            message: response.data.message,
-                            type: 'danger'
-                        }
+                        $scope.setErrorMessage(error.data)
+                        $scope.alert.type = 'danger'
                     })
 
             }
-
-
             $scope.reset()
         }
 
@@ -134,17 +141,13 @@ angular.module('movie')
         $scope.deleteMovie = function (id) {
             movieServices.deleteMovie(id)
                 .then(function (response) {
-                    $scope.alert = {
-                        message: response.data.message,
-                        type: 'success'
-                    }
+                    $scope.setErrorMessage(response.data)
+                    $scope.alert.type = 'success'
                     $scope.initializeHome()
                 })
                 .catch(function (error) {
-                    $scope.alert = {
-                        message: response.data.message,
-                        type: 'danger'
-                    }
+                    $scope.setErrorMessage(error.data)
+                    $scope.alert.type = 'danger'
                 })
 
         }

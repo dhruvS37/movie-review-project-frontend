@@ -3,7 +3,7 @@
 angular.module('movieReview')
     .config(['$routeProvider', '$httpProvider',
 
-        function ($routeProvider, $httpProvider) {
+        function ($routeProvider, $httpProvider,) {
             $routeProvider
                 .when('/home', {
                     templateUrl: './pages/home.html',
@@ -24,28 +24,43 @@ angular.module('movieReview')
                     controller: 'loginController'
                 })
                 .when('/register', {
-                    templateUrl: './pages/register.html'
+                    templateUrl: './pages/register.html',
+                    controller: 'registerController'
                 })
                 .when('/email', {
-                    templateUrl: './pages/email.html'
+                    templateUrl: './pages/email.html',
+                    controller: 'forgotPasswordController'
                 })
-                .when('/reset', {
-                    templateUrl: './pages/reset.html'
+                .when('/reset/:token', {
+                    templateUrl: './pages/reset.html',
+                    controller: 'resetPasswordController'
                 })
-                .otherwise('/login');
+                .when('/', {
+                    template: '<h1>Welcome</h1>',
 
+                });
+
+                  
             $httpProvider.defaults.withCredentials = true
+            $httpProvider.defaults.xsrfCookieName = 'XSRF-TOKEN'
+            $httpProvider.defaults.xsrfHeaderName = 'X-XSRF-TOKEN'
+            
         }
     ])
     .run(['$rootScope', '$location', '$cookies', '$http',
         function ($rootScope, $location, $cookies, $http) {
 
+            $rootScope.alert = null
+            $rootScope.error = null
             $rootScope.globals = $cookies.get('globals') ? JSON.parse($cookies.get('globals')) : {};
+
+            $http.get('http://127.0.0.1:8000/welcome').then(function (response) {
+                $rootScope.appName = response.data;
+            })
 
             $rootScope.$on('$locationChangeStart', function (event, next, current) {
                 // redirect to login page if not logged in
-                console.log($rootScope.currentLocation);
-                
+
                 if (($location.path() == '/home' || $location.path() == '/filter') && !$rootScope.globals.currentUser) {
                     $location.path('/login');
                 }

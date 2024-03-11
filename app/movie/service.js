@@ -12,11 +12,11 @@ angular.module('movie')
         }
         
         service.addMovie = function (data){
-            console.log($cookies.get('XSRF-TOKEN'));
             return $http.post('http://127.0.0.1:8000/home', data)
         }
 
         service.updateMovie = function (data){
+
             return $http.put('http://127.0.0.1:8000/home/'+data.id, data)
         }
 

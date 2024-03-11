@@ -9,15 +9,15 @@
                 {{ session('status') }}
             </div>
 
-            <form method="POST" action="{{ route('password.email') }}">
-                {{ csrf_field() }}
+            <form method="POST" ng-submit="sendPasswordResetLink()">
+                <!-- {{ csrf_field() }} -->
 
                 <div class="mb-3">
                     <label for="email" class="form-label">Email address</label>
-                    <input type="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" id="email"
-                        aria-describedby="emailHelp" name="email" value="{{ old('email') }}" required>
-                    <span class="invalid-feedback" id="emailHelp">
-                        <strong>{{ $errors->first('email') }}</strong>
+                    <input type="email" class="form-control" ng-class="{'is-invalid' : error.email}" ng-model="email" id="email"
+                        aria-describedby="emailHelp" name="email" value="" required>
+                    <span class="invalid-feedback" id="emailHelp" ng-show="error.email">
+                        <strong>{{ error.email }}</strong>
                     </span>
                 </div>
 
@@ -29,9 +29,6 @@
 
             </form>
 
-            <div class=" container alert alert-success alert-box">
-                {{ Session::get('resetLink') }}
-            </div>
         </div>
     </div>
 </div>

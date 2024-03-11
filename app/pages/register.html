@@ -3,42 +3,41 @@
         <div class="col-sm-10 col-md-6 border rounded-2 my-3 p-3">
             <h2 class="text-bg-dark border rounded-2 text-center p-1 mb-3">Register</h2>
 
-            <form class="form-horizontal" method="POST" action="{{ route('register') }}">
-                {{ csrf_field() }}
+            <form class="form-horizontal" ng-submit="register()">
+                <!-- {{ csrf_field() }} -->
 
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
 
-                    <input type="text" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" id="name"
-                        name="name" aria-describedby="nameHelp" value="{{ old('name') }}" required autofocus>
+                    <input type="text" class="form-control" ng-class="{'is-invalid' : error.name}" ng-model="name" id="name" 
+                        name="name" aria-describedby="nameHelp" value="" required autofocus>
 
-                    <span class="invalid-feedback" id="nameHelp">
-                        <strong>{{ $errors->first('name') }}</strong>
+                    <span class="invalid-feedback" id="nameHelp" ng-show="error.name">
+                        <strong>{{ error.name }}</strong>
                     </span>
                 </div>
 
                 <div class="mb-3">
                     <label for="email" class="form-label">Email address</label>
-                    <input type="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" id="email"
+                    <input type="email" class="form-control" ng-class="{'is-invalid' : error.email}" ng-model="email" id="email"
                         aria-describedby="emailHelp" name="email" value="{{ old('email') }}" required>
 
-                    <span class="invalid-feedback" id="emailHelp">
-                        <strong>{{ $errors->first('email') }}</strong>
+                    <span class="invalid-feedback" id="emailHelp" ng-show="error.email">
+                        <strong>{{ error.email }}</strong>
                     </span>
                 </div>
 
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}"
-                        id="password" name="password" required>
-                    <span class="invalid-feedback">
-                        <strong>{{ $errors->first('password') }}</strong>
+                    <input type="password" class="form-control" ng-class="{'is-invalid' : error.password}" ng-model="password" id="password" name="password" required>
+                    <span class="invalid-feedback" ng-show="error.password">
+                        <strong>{{ error.password }}</strong>
                     </span>
                 </div>
 
                 <div class="mb-3">
                     <label for="password-confirm" class="form-label">Confirm Password</label>
-                    <input type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}"
+                    <input type="password" class="form-control" ng-model="password_confirmation"
                         id="password-confirm" name="password_confirmation" required>
                 </div>
 
@@ -46,6 +45,10 @@
                     <button type="submit" class="btn btn-dark">
                         Register
                     </button>
+                </div>
+
+                <div>
+                    
                 </div>
             </form>
         </div>

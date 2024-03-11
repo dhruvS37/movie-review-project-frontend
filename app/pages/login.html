@@ -8,13 +8,13 @@
 
                 <div class="mb-3">
                     <label for="email" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="email" ng-model="email"
+                    <input type="email" class="form-control" id="email" ng-model="email" ng-class="{'is-invalid' : error.email}"
                         aria-describedby="emailHelp" name="email" value="" required autofocus>
 
                         <!-- {{ $errors->has('email') ? ' is-invalid' : '' }} -->
-                    <!-- <span class="invalid-feedback" id="emailHelp">
-                        <strong>{{ $errors->first('email') }}</strong>
-                    </span> -->
+                    <span class="invalid-feedback" id="emailHelp" ng-show="error.email">
+                        <strong>{{ error.email }}</strong>
+                    </span>
 
                 </div>
 
