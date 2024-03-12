@@ -5,17 +5,15 @@
             <h2 class="text-bg-dark border rounded-2 text-center p-1 mb-3">Reset Password</h2>
 
 
-            <div class="alert alert-success">
-                {{ session('status') }}
-            </div>
+            <div ng-include="'./pages/alerts.html'"></div>
 
             <form method="POST" ng-submit="sendPasswordResetLink()">
                 <!-- {{ csrf_field() }} -->
 
                 <div class="mb-3">
                     <label for="email" class="form-label">Email address</label>
-                    <input type="email" class="form-control" ng-class="{'is-invalid' : error.email}" ng-model="email" id="email"
-                        aria-describedby="emailHelp" name="email" value="" required>
+                    <input type="email" class="form-control" ng-class="{'is-invalid' : error.email}" ng-model="email"
+                        id="email" aria-describedby="emailHelp" name="email" value="" required>
                     <span class="invalid-feedback" id="emailHelp" ng-show="error.email">
                         <strong>{{ error.email }}</strong>
                     </span>

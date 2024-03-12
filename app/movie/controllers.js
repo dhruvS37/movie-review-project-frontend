@@ -1,5 +1,5 @@
 angular.module('movie')
-    .controller('movieInfoController', ['$scope', '$rootScope', 'movieServices', function ($scope, $rootScope, movieServices) {
+    .controller('movieInfoController', ['$scope', '$rootScope', 'movieServices', 'errors', function ($scope, $rootScope, movieServices, errors) {
         $scope.categories
         $scope.casts
         $scope.movies
@@ -19,30 +19,19 @@ angular.module('movie')
                     $scope.movies.push(response.data.movies)
                 },
                 function (error) {
-                    console.log(error);
+                    $scope.alert = errors.setAlertMessage(error.data)
+                    $scope.alert.type = 'danger'
                 })
 
-        }
-
-        $scope.setErrorMessage = function (data) {
-            let alert = { message: '' }
-            if ('movieName' in data)
-                alert.message += data.movieName + "\n"
-            if ('category' in data)
-                alert.message += data.category + "\n"
-            if ('rating' in data)
-                alert.message += data.rating + "\n"
-            if ('message' in data)
-                alert.message += data.message
-
-            $scope.alert = alert
         }
         $scope.initializeHome()
     }])
 
-    .controller('movieInfoFormController', ['$scope', 'movieServices', '$timeout', '$rootScope', function ($scope, movieServices, $timeout, $rootScope) {
+    .controller('movieInfoFormController', ['$scope', 'movieServices', '$timeout', '$rootScope', 'errors', function ($scope, movieServices, $timeout, $rootScope, errors) {
         $scope.selectedCast = []
         $scope.isChecked = true
+
+
         $scope.$on('fillDataInForm', function (event, data) {
             $scope.movieToUpdate = data.id
 
@@ -83,12 +72,13 @@ angular.module('movie')
 
                 movieServices.addMovie(newData)
                     .then(function (response) {
-                        $scope.setErrorMessage(response.data)
+                        $scope.alert = errors.setAlertMessage(response.data)
                         $scope.alert.type = 'success'
+
                         $scope.initializeHome()
                     })
                     .catch(function (error) {
-                        $scope.setErrorMessage(error.data)
+                        $scope.alert = errors.setAlertMessage(error.data)
                         $scope.alert.type = 'danger'
                     })
             } else {
@@ -97,13 +87,14 @@ angular.module('movie')
                 movieServices.updateMovie(newData)
                     .then(function (response) {
                         // console.log(response);
-                        $scope.setErrorMessage(response.data)
+                        $scope.alert = errors.setAlertMessage(response.data)
                         $scope.alert.type = 'success'
+
                         $scope.initializeHome()
 
                     })
                     .catch(function (error) {
-                        $scope.setErrorMessage(error.data)
+                        $scope.alert = errors.setAlertMessage(error.data)
                         $scope.alert.type = 'danger'
                     })
 
@@ -126,7 +117,7 @@ angular.module('movie')
         }
     }])
 
-    .controller('movieListController', ['$scope', '$rootScope', 'movieServices', function ($scope, $rootScope, movieServices) {
+    .controller('movieListController', ['$scope', '$rootScope', 'movieServices', 'errors', function ($scope, $rootScope, movieServices, errors) {
 
         $scope.fillDataInForm = function (data) {
 
@@ -141,12 +132,12 @@ angular.module('movie')
         $scope.deleteMovie = function (id) {
             movieServices.deleteMovie(id)
                 .then(function (response) {
-                    $scope.setErrorMessage(response.data)
+                    $scope.alert = errors.setAlertMessage(response.data)
                     $scope.alert.type = 'success'
                     $scope.initializeHome()
                 })
                 .catch(function (error) {
-                    $scope.setErrorMessage(error.data)
+                    $scope.alert = errors.setAlertMessage(error.data)
                     $scope.alert.type = 'danger'
                 })
 

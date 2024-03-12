@@ -5,6 +5,7 @@ angular.module('movieFilters', []);
 angular.module('category', []);
 angular.module('cast', [])
 angular.module('authentication',[])
+
 angular.module('movieReview', [
   'ngRoute',
   'ngCookies',

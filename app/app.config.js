@@ -28,7 +28,7 @@ angular.module('movieReview')
                     controller: 'registerController'
                 })
                 .when('/email', {
-                    templateUrl: './pages/email.html',
+                    templateUrl: './pages/forgot.html',
                     controller: 'forgotPasswordController'
                 })
                 .when('/reset/:token', {
@@ -50,8 +50,6 @@ angular.module('movieReview')
     .run(['$rootScope', '$location', '$cookies', '$http',
         function ($rootScope, $location, $cookies, $http) {
 
-            $rootScope.alert = null
-            $rootScope.error = null
             $rootScope.globals = $cookies.get('globals') ? JSON.parse($cookies.get('globals')) : {};
 
             $http.get('http://127.0.0.1:8000/welcome').then(function (response) {
