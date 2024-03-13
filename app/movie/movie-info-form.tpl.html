@@ -24,7 +24,7 @@
 
             <div class="form-check col-sm-6 col-md-2" ng-repeat="category in categories[0]">
                 <input class="form-check-input checkInput" type="checkbox" name="category[]"
-                    ng-model="category.selected" value={{category.category}} id={{category.id}} >
+                    ng-model="category.selected" value={{category.category}} id={{category.id}}>
 
                 <label class="form-check-label" for={{category.id}}>{{ category.category }}</label>
             </div>
@@ -74,7 +74,7 @@
 
 </form>
 <script>
-    
+
     jQuery(document).ready(function ($) {
 
         function hideSelected(value) {
@@ -93,12 +93,5 @@
             placeholder: "Select a rating",
         });
 
-        // $('#reset').click(function (event) {
-        //     event.preventDefault();
-        //     $("#movieNameInput").val(null);
-        //     $('.checkInput').prop("checked", false)
-        //     $('#castAndCrewInput').val(null).trigger('change');
-        //     $('#ratingInput').val(null).trigger('change');
-        // })
     })
 </script>

@@ -2,20 +2,21 @@ angular.module('authentication')
     .factory('authenticationService', ['$rootScope', '$http', '$cookies', '$document', function ($rootScope, $http, $cookies, $document) {
         let service = {}
 
-        service.getCookie = function (name) {
-            const value = ';' + $document.cookie;
-            const parts = value.split(';' + name + '=');
-            if (parts.length === 2) return parts.pop().split(';').shift();
+        service.getCsrfToken = function(){
+            return $http.get('http://127.0.0.1:8000/welcome')
         }
 
         service.login = function (username, password, remmember = false, success, failure) {
-
-            $http.post('http://127.0.0.1:8000/login', { email: username, password: password, remmember: remmember })
-                .then(function (response) {
-                    success(response)
-                }, function (error) {
-                    failure(error)
-                })
+            this.getCsrfToken().then(function (response) {
+                
+                $http.post('http://127.0.0.1:8000/login', {email: username, password: password, remmember: remmember})
+                    .then(function (response) {
+                        success(response)
+                    }, function (error) {
+                        failure(error)
+                    })
+            })
+            
         }
 
         service.setCredentials = function (username) {
@@ -29,30 +30,39 @@ angular.module('authentication')
         }
 
         service.register = function (name, username, password, password_confirmation, success, failure) {
+            this.getCsrfToken().then(function (response) {
+
             $http.post('http://127.0.0.1:8000/register', { name: name, email: username, password: password, password_confirmation: password_confirmation })
                 .then(function (response) {
                     success(response)
                 }, function (error) {
                     failure(error)
                 })
+            })
         }
 
         service.sendResetLinkEmail = function (email, success, failure) {
+            this.getCsrfToken().then(function (response) {
+
             $http.post('http://127.0.0.1:8000/password/email', { email: email })
                 .then(function (response) {
                     success(response)
                 }, function (error) {
                     failure(error)
                 })
+            })
         }
 
         service.resetPassword = function (email, password, password_confirmation, token, success, failure) {
+            this.getCsrfToken().then(function (response) {
+
             $http.post('http://127.0.0.1:8000/password/reset', { email: email, password: password, password_confirmation: password_confirmation, token: token })
                 .then(function (response) {
                     success(response)
                 }, function (error) {
                     failure(error)
                 })
+            })
         }
         service.logout = function () {
             $http.post('http://127.0.0.1:8000/logout')

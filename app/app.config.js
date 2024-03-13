@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('movieReview')
-    .config(['$routeProvider', '$httpProvider',
+.config(['$routeProvider', '$httpProvider',
 
-        function ($routeProvider, $httpProvider,) {
+function ($routeProvider, $httpProvider,) {
+
             $routeProvider
                 .when('/home', {
                     templateUrl: './pages/home.html',
@@ -40,21 +41,21 @@ angular.module('movieReview')
 
                 });
 
-                  
             $httpProvider.defaults.withCredentials = true
             $httpProvider.defaults.xsrfCookieName = 'XSRF-TOKEN'
             $httpProvider.defaults.xsrfHeaderName = 'X-XSRF-TOKEN'
-            
+            $httpProvider.xsrfWhitelistedOrigins.push('http://127.0.0.1:8000')
         }
     ])
     .run(['$rootScope', '$location', '$cookies', '$http',
         function ($rootScope, $location, $cookies, $http) {
-
             $rootScope.globals = $cookies.get('globals') ? JSON.parse($cookies.get('globals')) : {};
-
+            
             $http.get('http://127.0.0.1:8000/welcome').then(function (response) {
                 $rootScope.appName = response.data;
+                console.log($cookies.getAll());
             })
+            
 
             $rootScope.$on('$locationChangeStart', function (event, next, current) {
                 // redirect to login page if not logged in
