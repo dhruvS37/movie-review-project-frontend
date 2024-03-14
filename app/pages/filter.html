@@ -5,17 +5,16 @@
                 <h4 class="p-2 " id="basic-addon1">Filters</h4>
 
 
-                <div class="mb-2 border-bottom" id="radioForSort">
+                <div class="mb-2 border-bottom" id="radioForSort" ng-init="sortOrder='asc'">
                     <h6 class="p-2 " id="basic-addon1">Sorting</h6>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="sortingOrder" id="ascending" value="asc"
-                            checked>
+                        <input class="form-check-input" type="radio" name="sortingOrder" id="ascending" value="asc" ng-model="sortOrder">
                         <label class="form-check-label" for="ascending">
                             A-Z
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="sortingOrder" id="descending"
+                        <input class="form-check-input" type="radio" name="sortingOrder" id="descending" ng-model="sortOrder"
                             value="desc">
                         <label class="form-check-label" for="descending">
                             Z-A
@@ -26,43 +25,20 @@
 
                 <div class="mb-2 border-bottom pb-3">
                     <h6 class="p-2 " id="basic-addon1">Category</h6>
-                    <select class="form-select cast-crew-select" name="castAndCrew[]" id="selectCategories" style="width: 100%;" multiple="multiple" required>
-                        @foreach ($categories as $category)
-                            {{ $category->category }}
-                            <option value="{{ trim($category->category) }}">
-                                {{ $category->category }}
+                    <select class="form-select cast-crew-select" name="castAndCrew[]" id="selectCategories" style="width: 100%;" ng-model="selectedCategories" multiple="multiple" required>
+                            <option value={{category.category}} ng-repeat="category in categoriesList">
+                                {{category.category}}
                             </option>
-                        @endforeach
                     </select>
                 </div>
 
 
                 <div class="mb-2 border-bottom">
                     <h6 class="p-2 " id="basic-addon1">Rating</h6>
-                    <div class="form-check">
-                        <input class="form-check-input checkInput" type="checkbox" name="rating[]" value="1"
-                            id="rating1">
-                        <label class="form-check-label" for="rating1">1</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input checkInput" type="checkbox" name="rating[]" value="2"
-                            id="rating2">
-                        <label class="form-check-label" for="rating2">2</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input checkInput" type="checkbox" name="rating[]" value="3"
-                            id="rating3">
-                        <label class="form-check-label" for="rating3">3</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input checkInput" type="checkbox" name="rating[]" value="4"
-                            id="rating4">
-                        <label class="form-check-label" for="rating4">4</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input checkInput" type="checkbox" name="rating[]" value="5"
-                            id="rating5">
-                        <label class="form-check-label" for="rating5">5</label>
+                    <div class="form-check" ng-repeat="rating in ratingList">
+                        <input class="form-check-input checkInput" type="checkbox" name="rating[]" value={{rating.val}}
+                            id="rating{{rating.val}}" ng-model="rating.selected">
+                        <label class="form-check-label" for="rating{{rating.val}}">{{ rating.val }}</label>
                     </div>
                 </div>
 
@@ -82,17 +58,32 @@
                     </tr>
                 </thead>
                 <tbody id="tableBody" class="table-group-divider">
-                    @foreach ($data as $movie)
-                        <tr>
-                            <td>{{ $movie->movie_name }}</td>
-                            <td>{{ $movie->categories }}</td>
-                            <td>{{ $movie->cast_crew }}</td>
-                            <td>{{ $movie->rating }}</td>
+                        <tr ng-repeat="movie in movieList">
+                            <td>{{ movie.movie_name }}</td>
+                            <td>{{ movie.categories }}</td>
+                            <td>{{ movie.cast_crew }}</td>
+                            <td>{{ movie.rating }}</td>
                         </tr>
-                    @endforeach
                 </tbody>
         </div>
     </div>
 </div>
 
-<script src="{{ asset('js/report_main.js') }}"></script>
+<script>
+
+    jQuery(document).ready(function ($) {
+
+        function hideSelected(value) {
+            if (value && !value.selected) {
+                return $('<span>' + value.text + '</span>');
+            }
+        }
+
+        $('#selectCategories').select2({
+            placeholder: "Select a cast",
+            width: 'resolve',
+            templateResult: hideSelected
+        });
+
+    })
+</script>

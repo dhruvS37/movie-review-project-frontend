@@ -1,5 +1,5 @@
 angular.module('movie')
-    .controller('movieInfoController', ['$scope', '$rootScope', 'movieServices', 'errors', function ($scope, $rootScope, movieServices, errors) {
+    .controller('movieInfoController', ['$scope', 'movieServices', 'categoryServices', 'castServices', 'errors', function ($scope, movieServices, categoryServices, castServices, errors) {
         $scope.categories
         $scope.casts
         $scope.movies
@@ -14,14 +14,37 @@ angular.module('movie')
             movieServices.getMoviesInfo().then(
                 function (response) {
 
-                    $scope.categories.push(response.data.categories)
-                    $scope.casts.push(response.data.casts)
                     $scope.movies.push(response.data.movies)
-                },
-                function (error) {
-                    $scope.alert = errors.setAlertMessage(error.data)
-                    $scope.alert.type = 'danger'
-                })
+                }, function (error) {
+                errors.clearAlertTimeout()
+                $scope.alert = errors.setAlertMessage(error.data, 'danger')
+                errors.setAlertTimeout($scope.alert)
+
+            })
+
+            castServices.getCastList()
+                .then(function (response) {
+                    $scope.casts.push(response.data.casts)
+
+                }, function (error) {
+                errors.clearAlertTimeout()
+                $scope.alert = errors.setAlertMessage(error.data, 'danger')
+                errors.setAlertTimeout($scope.alert)
+
+            })
+
+            categoryServices.getCategoryList()
+                .then(function (response) {
+                    $scope.categories.push(response.data.categories)
+
+                }, function (error) {
+                errors.clearAlertTimeout()
+                $scope.alert = errors.setAlertMessage(error.data, 'danger')
+                errors.setAlertTimeout($scope.alert)
+
+            })
+
+        
 
         }
         $scope.initializeHome()
@@ -72,14 +95,16 @@ angular.module('movie')
 
                 movieServices.addMovie(newData)
                     .then(function (response) {
-                        $scope.alert = errors.setAlertMessage(response.data)
-                        $scope.alert.type = 'success'
+                        errors.clearAlertTimeout()
+                        $scope.alert = errors.setAlertMessage(response.data, 'success')
+                        errors.setAlertTimeout($scope.alert)
 
                         $scope.initializeHome()
                     })
                     .catch(function (error) {
-                        $scope.alert = errors.setAlertMessage(error.data)
-                        $scope.alert.type = 'danger'
+                        errors.clearAlertTimeout()
+                        $scope.alert = errors.setAlertMessage(error.data, 'danger')
+                        errors.setAlertTimeout($scope.alert)
                     })
             } else {
                 newData.id = $scope.movieToUpdate;
@@ -87,15 +112,17 @@ angular.module('movie')
                 movieServices.updateMovie(newData)
                     .then(function (response) {
                         // console.log(response);
-                        $scope.alert = errors.setAlertMessage(response.data)
-                        $scope.alert.type = 'success'
+                        errors.clearAlertTimeout()
+                        $scope.alert = errors.setAlertMessage(response.data, 'success')
+                        errors.setAlertTimeout($scope.alert)
 
                         $scope.initializeHome()
 
                     })
                     .catch(function (error) {
-                        $scope.alert = errors.setAlertMessage(error.data)
-                        $scope.alert.type = 'danger'
+                        errors.clearAlertTimeout()
+                        $scope.alert = errors.setAlertMessage(error.data, 'danger')
+                        errors.setAlertTimeout($scope.alert)
                     })
 
             }
@@ -107,10 +134,15 @@ angular.module('movie')
 
             $scope.movieToUpdate = undefined
 
+            $scope.movieName = '';
+            $scope.categories[0].forEach(element => {
+                element.selected = false
+            })
+
             $timeout(function () {
 
-                jQuery("#movieNameInput").val(null);
-                jQuery('.checkInput').prop("checked", false)
+                // jQuery("#movieNameInput").val(null);
+                // jQuery('.checkInput').prop("checked", false)
                 jQuery('#castAndCrewInput').val(null).trigger('change');
                 jQuery('#ratingInput').val(null).trigger('change');
             })
@@ -132,13 +164,17 @@ angular.module('movie')
         $scope.deleteMovie = function (id) {
             movieServices.deleteMovie(id)
                 .then(function (response) {
-                    $scope.alert = errors.setAlertMessage(response.data)
-                    $scope.alert.type = 'success'
+                    errors.clearAlertTimeout()
+                    $scope.alert = errors.setAlertMessage(response.data, 'success')
+                    errors.setAlertTimeout($scope.alert)
+
                     $scope.initializeHome()
                 })
                 .catch(function (error) {
-                    $scope.alert = errors.setAlertMessage(error.data)
-                    $scope.alert.type = 'danger'
+                    errors.clearAlertTimeout()
+                    $scope.alert = errors.setAlertMessage(error.data, 'danger')
+                    errors.setAlertTimeout($scope.alert)
+
                 })
 
         }

@@ -8,14 +8,19 @@ angular.module('cast')
             $scope.addCast = function(){
                 castServices.addCast({cast : $scope.castInput})
                 .then(function (response) { 
+                    errors.clearAlertTimeout()
                     $scope.alert = errors.setAlertMessage(response.data)
                     $scope.alert.type = 'success'
+                    errors.setAlertTimeout($scope.alert)
 
                     $scope.castInput = ''
                 })
                 .catch(function(error){
+                    errors.clearAlertTimeout()
                     $scope.alert = errors.setAlertMessage(error.data)
                     $scope.alert.type = 'danger'
+                    errors.setAlertTimeout($scope.alert)
+
                 })
             }
         }]

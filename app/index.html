@@ -39,7 +39,9 @@
 
     <!-- scripts -->
     <script src="app.module.js"></script>
+    <script src="app.service.js"></script>
     <script src="app.config.js"></script>
+    <script src="app.routes.js"></script>
     <script src="movie/components.js"></script>
     <script src="movie/services.js"></script>
     <script src="movie/controllers.js"></script>
@@ -49,16 +51,17 @@
     <script src="cast/services.js"></script>
     <script src="authentication/services.js"></script>
     <script src="authentication/controllers.js"></script>
+    <script src="filter-data/controllers.js"></script>
 
     <style>
         @keyframes fadeIn {
             0% {
-                opacity: 1;
-                display: none;
+                /* opacity: 1; */
+                display: block;
             }
 
             100% {
-                opacity: 0;
+                /* opacity: 0; */
                 display: none;
             }
         }
@@ -68,7 +71,7 @@
 <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">{{ appName }}</a>
+            <a class="navbar-brand mx-3" href="#">{{ appName }}</a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -89,14 +92,14 @@
                 <ul class="navbar-nav " style="--bs-scroll-height: 100px;">
                     <li class="nav-item"><a class="nav-link" ng-class="{active:currentLocation == '/login'}" ng-show="!globals.currentUser" href="#!login">Login</a></li>
                     <li class="nav-item"><a class="nav-link" ng-class="{active:currentLocation == '/register'}" ng-show="!globals.currentUser" href="#!register">Register</a></li>
-                    <li class="nav-item dropdown" ng-show="globals.currentUser">
+                    <li class="nav-item dropdown mx-3" ng-show="globals.currentUser">
                         <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             {{globals.currentUser.username}}
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a class="dropdown-item " href="" ng-click="logout()">
+                                <a class="dropdown-item" href="" ng-click="logout()">
                                     Logout
                                 </a>
                             </li>

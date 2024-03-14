@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('movie', []);
-angular.module('movieFilters', []);
 angular.module('category', []);
 angular.module('cast', [])
 angular.module('authentication',[])
+angular.module('filterData',[])
 
 angular.module('movieReview', [
   'ngRoute',
@@ -12,7 +12,6 @@ angular.module('movieReview', [
   'movie', 
   'category',
   'cast',
-  'movieFilters',
+  'filterData',
   'authentication',
-  // 'movieServices'
 ]);
