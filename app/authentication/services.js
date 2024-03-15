@@ -1,15 +1,16 @@
 angular.module('authentication')
-    .factory('authenticationService', ['$rootScope', '$http', '$cookies', function ($rootScope, $http, $cookies) {
+    .factory('authenticationService', ['$rootScope', '$http', '$cookies','globalSetting', function ($rootScope, $http, $cookies,globalSetting) {
         let service = {}
+        const url = globalSetting.apiUrl;
 
         service.getCsrfToken = function () {
-            return $http.get('http://127.0.0.1:8000/welcome')
+            return $http.get(url+'/welcome')
         }
 
         service.login = function (username, password, remmember = false, success, failure) {
             this.getCsrfToken().then(function (response) {
 
-                $http.post('http://127.0.0.1:8000/login', { email: username, password: password, remmember: remmember })
+                $http.post(url+'/login', { email: username, password: password, remmember: remmember })
                     .then(function (response) {
                         success(response)
                     }, function (error) {
@@ -32,7 +33,7 @@ angular.module('authentication')
         service.register = function (name, username, password, password_confirmation, success, failure) {
             this.getCsrfToken().then(function (response) {
 
-                $http.post('http://127.0.0.1:8000/register', { name: name, email: username, password: password, password_confirmation: password_confirmation })
+                $http.post(url+'/register', { name: name, email: username, password: password, password_confirmation: password_confirmation })
                     .then(function (response) {
                         success(response)
                     }, function (error) {
@@ -44,7 +45,7 @@ angular.module('authentication')
         service.sendResetLinkEmail = function (email, success, failure) {
             this.getCsrfToken().then(function (response) {
 
-                $http.post('http://127.0.0.1:8000/password/email', { email: email })
+                $http.post(url+'/password/email', { email: email })
                     .then(function (response) {
                         success(response)
                     }, function (error) {
@@ -56,7 +57,7 @@ angular.module('authentication')
         service.resetPassword = function (email, password, password_confirmation, token, success, failure) {
             this.getCsrfToken().then(function (response) {
 
-                $http.post('http://127.0.0.1:8000/password/reset', { email: email, password: password, password_confirmation: password_confirmation, token: token })
+                $http.post(url+'/password/reset', { email: email, password: password, password_confirmation: password_confirmation, token: token })
                     .then(function (response) {
                         success(response)
                     }, function (error) {
@@ -65,7 +66,7 @@ angular.module('authentication')
             })
         }
         service.logout = function () {
-            $http.post('http://127.0.0.1:8000/logout')
+            $http.post(url+'/logout')
                 .then(function (response) {
                     success(response)
                 }, function (error) {

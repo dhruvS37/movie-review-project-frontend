@@ -1,13 +1,14 @@
 angular.module('category')
-    .factory('categoryServices', ['$http', function ($http){
+    .factory('categoryServices', ['$http','globalSetting', function ($http,globalSetting){
         let service = {}
+        const url = globalSetting.apiUrl+'/category';
 
         service.getCategoryList = function (){
-            return $http.get('http://127.0.0.1:8000/category')
+            return $http.get(url)
         }
 
         service.addCategory = function (data){
-            return $http.post('http://127.0.0.1:8000/category', data)
+            return $http.post(url, data)
         }
 
         return service;
